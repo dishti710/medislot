@@ -1,10 +1,6 @@
 # MediSlot - Clinic Appointment Booking System
 
-MediSlot is a minimal, complete, full-stack web application designed for a college summer training presentation. It demonstrates the core foundations of modern software engineering: a decoupled frontend-backend architecture, RESTful API design, role-based access control (RBAC), and relational database modeling using pure SQL with transactional integrity (no ORM).
-
----
-
-## 📁 Project Structure
+##  Project Structure
 
 ```
 MediSlot/
@@ -80,25 +76,10 @@ MediSlot/
 | **Database** | PostgreSQL | Handled using `pg` (node-postgres) with pure SQL queries (No ORM) |
 | **Security** | bcryptjs & JWT | Bcrypt salt rounds (10), JWT bearer token validation, RBAC middleware |
 
----
-
-## 👥 Roles & Permissions Matrix
-
-| Feature | Patient | Doctor | Admin |
-| :--- | :---: | :---: | :---: |
-| Self-Registration & Login | ✅ | Login only | Login only |
-| Browse Doctors & Availability Slots | ✅ | ✅ | ✅ |
-| Book Appointment (SQL Transaction) | ✅ | ❌ | ❌ |
-| Cancel Own Appointment (SQL Transaction) | ✅ | ❌ | ❌ |
-| View Own Appointments & Prescriptions | ✅ | ✅ | ❌ |
-| Publish & Delete Own Availability Slots | ❌ | ✅ | ❌ |
-| Complete Appointment & Issue Prescription | ❌ | ✅ | ❌ |
-| Add & Remove Doctor Accounts | ❌ | ❌ | ✅ |
-| View All Clinic Appointments | ❌ | ❌ | ✅ |
 
 ---
 
-## 🗄️ Database Schema & Relational Design
+##  Database Schema & Relational Design
 
 The database schema (`server/db/schema.sql`) implements 5 relational tables:
 
@@ -116,7 +97,7 @@ The database schema (`server/db/schema.sql`) implements 5 relational tables:
 
 ---
 
-## 🚀 Quick Setup Guide
+## Quick Setup Guide
 
 ### Prerequisites
 - Node.js (v18 or higher) & npm
@@ -178,7 +159,7 @@ CREATE DATABASE medislot_db;
 
 ---
 
-## 🔑 Demo Login Credentials
+## Demo Login Credentials
 
 All seed accounts use the default password: **`password123`**
 
@@ -193,7 +174,7 @@ All seed accounts use the default password: **`password123`**
 
 ---
 
-## 📡 REST API Reference
+## REST API Reference
 
 ### Authentication (`/api/auth`)
 - `POST /api/auth/register` - Register a new patient account (`name`, `email`, `password`)
@@ -218,14 +199,3 @@ All seed accounts use the default password: **`password123`**
 - `GET /api/admin/appointments` - Full clinic audit of all appointments across all users *(Admin only)*
 - `POST /api/admin/doctors` - Create a new doctor profile and system login account *(Admin only)*
 - `DELETE /api/admin/doctors/:id` - Remove doctor account and cascade deletion *(Admin only)*
-
----
-
-## 🎓 College Presentation Highlights
-
-When demonstrating this project to instructors and evaluators, emphasize these architectural design choices:
-
-1. **Pure SQL over ORM**: Direct SQL queries using the `pg` driver demonstrate deep understanding of relational schemas, explicit `JOIN`s, and transactional queries (`BEGIN / COMMIT / ROLLBACK`).
-2. **Race-Condition Safety**: Explain how `SELECT ... FOR UPDATE` row-level locks prevent two patients from booking the same doctor slot at the exact same fraction of a second.
-3. **Role-Based Security**: Demonstrate how route guards on the frontend (`ProtectedRoute`) prevent unauthorized access, while backend middleware (`verifyToken` + `requireRole`) strictly rejects unauthorized API calls with `401 Unauthorized` and `403 Forbidden`.
-4. **Separation of Concerns (MVC)**: Clean division into Routes (URL mapping), Controllers (business logic & transactions), Middleware (auth & error handling), and Database layers.
